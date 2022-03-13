@@ -39,6 +39,8 @@ namespace TaskListDemo
                     case "4":
                         going = false;
                         break;
+                    default:
+                        break;
                 }
             }
 
@@ -68,15 +70,15 @@ namespace TaskListDemo
             {
                 Console.Write($"Room #[0-{rooms.Length}]: ");
                 string newRoom = Console.ReadLine();
-                if (rooms[int.Parse(newRoom)] == "")
+                if (string.IsNullOrEmpty(rooms[int.Parse(newRoom)]))
                 {
-                    Console.WriteLine($"Room #{newRoom} is occupied.");
-                }
-                else {
                     Console.WriteLine("Success :) ");
                     Console.WriteLine($"{guest} is booked in room #{newRoom}.");
                     rooms[int.Parse(newRoom)] = guest;
-                    settingRoom = false;    
+                    settingRoom = false;
+                }
+                else {
+                    Console.WriteLine($"Room #{newRoom} is occupied.");
                 }
             }
             return rooms;
@@ -87,12 +89,11 @@ namespace TaskListDemo
             Console.WriteLine("Guest Check Out");
             Console.WriteLine("===============");
 
-
             while (checkingOut)
             {
                 Console.Write($"Room #[0-{rooms.Length}]: ");
                 string roomNumber = Console.ReadLine();
-                if (rooms[int.Parse(roomNumber)] == "")
+                if (string.IsNullOrEmpty(rooms[int.Parse(roomNumber)]))
                 {
                     Console.WriteLine($"Room #{roomNumber} is unoccupied.");
                 }
@@ -108,7 +109,6 @@ namespace TaskListDemo
         }
         private static void ViewGuests(string[] rooms)
         {
-            Console.Write($"Room #[0-{rooms.Length}]: ");
             Console.WriteLine();
             int index;
             do
