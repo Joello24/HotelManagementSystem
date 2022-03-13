@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace TaskListDemo
+namespace HotelManager
 {
-    static class MainClass
+    internal class HotelController
     {
-        static void Main()
-        {
-            Run();
-        }
 
-        private static void Run()
+        public static void Run()
         {
             int roomNum = 0;
             do
             {
                 Console.Write("Enter the number of capsules: ");
-                int.TryParse(Console.ReadLine(), out roomNum); 
+                int.TryParse(Console.ReadLine(), out roomNum);
             }
             while (roomNum == 0);
 
@@ -58,7 +57,7 @@ namespace TaskListDemo
             return Console.ReadLine();
         }
 
-        private static string[] CheckIn(string[] rooms) 
+        private static string[] CheckIn(string[] rooms)
         {
             bool settingRoom = true;
             Console.WriteLine("Guest Check In");
@@ -66,7 +65,7 @@ namespace TaskListDemo
             Console.Write("Guest Name: ");
             string guest = Console.ReadLine();
 
-            while (settingRoom) 
+            while (settingRoom)
             {
                 Console.Write($"Room #[0-{rooms.Length}]: ");
                 string newRoom = Console.ReadLine();
@@ -77,7 +76,8 @@ namespace TaskListDemo
                     rooms[int.Parse(newRoom)] = guest;
                     settingRoom = false;
                 }
-                else {
+                else
+                {
                     Console.WriteLine($"Room #{newRoom} is occupied.");
                 }
             }
@@ -119,8 +119,8 @@ namespace TaskListDemo
             while (index == 0);
             int lowindex = index - 5;
             int highindex = index + 5;
-            if (lowindex < 0) {lowindex = 0;}
-            if (highindex > rooms.Length-1) { highindex = rooms.Length-1; }
+            if (lowindex < 0) { lowindex = 0; }
+            if (highindex > rooms.Length - 1) { highindex = rooms.Length - 1; }
             for (int i = lowindex; i <= highindex; i++)
             {
                 string tri = string.IsNullOrEmpty(rooms[i]) == true ? "[Unoccupied]" : rooms[i];
@@ -129,3 +129,4 @@ namespace TaskListDemo
         }
     }
 }
+
