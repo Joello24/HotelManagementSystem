@@ -39,7 +39,6 @@ namespace HotelManager
 
             } while (input != "q");
         }
-
         public static void instructions()
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -55,7 +54,6 @@ namespace HotelManager
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("~ ");
         }
-
         public static void ParseInput(String input)
         {
             String[] command = input.Split(" ");
@@ -75,7 +73,6 @@ namespace HotelManager
                     break;
             }
         }
-
         private static void ListGuests()
         {
             foreach (KeyValuePair<int, Guest> user in UserList)
@@ -118,8 +115,8 @@ namespace HotelManager
                 int temp = int.Parse(Console.ReadLine());
                 if (temp >= 0 && temp < 11 && rooms[temp] == false)
                 {
-                    roomss[temp].Guest = value;
-                    roomss[temp].Booked = true;
+                    //roomss[temp].Guest = value;
+                    //roomss[temp].Booked = true;
                     roomNumber = temp;
                     Guest guest = new Guest(ID_LIST, roomNumber, firstName);
                     UserList.Add(ID_LIST, guest);
@@ -228,7 +225,6 @@ namespace HotelManager
             UserList.TryGetValue(id, out Guest value);
             return value;
         }
-
         private static void BookRoom()
         {
             

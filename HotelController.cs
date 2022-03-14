@@ -44,7 +44,6 @@ namespace HotelManager
             }
 
         }
-
         private static string MainMenu()
         {
             Console.Write(@"Guest Menu
@@ -56,25 +55,24 @@ namespace HotelManager
         Choose on option [1-4]:");
             return Console.ReadLine();
         }
-
         private static string[] CheckIn(string[] rooms)
         {
-            bool settingRoom = true;
+            bool isSettingRoom = true;
             Console.WriteLine("Guest Check In");
             Console.WriteLine("===============");
             Console.Write("Guest Name: ");
-            string guest = Console.ReadLine();
+            string guestName = Console.ReadLine();
 
-            while (settingRoom)
+            while (isSettingRoom)
             {
-                Console.Write($"Room #[0-{rooms.Length}]: ");
-                string newRoom = Console.ReadLine();
-                if (string.IsNullOrEmpty(rooms[int.Parse(newRoom)]))
+                int newRoom = GetIntInput(rooms);
+
+                if (string.IsNullOrEmpty(rooms[newRoom]))
                 {
                     Console.WriteLine("Success :) ");
-                    Console.WriteLine($"{guest} is booked in room #{newRoom}.");
-                    rooms[int.Parse(newRoom)] = guest;
-                    settingRoom = false;
+                    Console.WriteLine($"{guestName} is booked in room #{newRoom}.");
+                    rooms[newRoom] = guestName;
+                    isSettingRoom = false;
                 }
                 else
                 {
@@ -91,17 +89,17 @@ namespace HotelManager
 
             while (checkingOut)
             {
-                Console.Write($"Room #[0-{rooms.Length}]: ");
-                string roomNumber = Console.ReadLine();
-                if (string.IsNullOrEmpty(rooms[int.Parse(roomNumber)]))
+                int roomNumber = GetIntInput(rooms);
+
+                if (string.IsNullOrEmpty(rooms[roomNumber]))
                 {
                     Console.WriteLine($"Room #{roomNumber} is unoccupied.");
                 }
                 else
                 {
                     Console.WriteLine("Success :) ");
-                    Console.WriteLine($"{rooms[int.Parse(roomNumber)]} checked out of room #{roomNumber}.");
-                    rooms[int.Parse(roomNumber)] = "";
+                    Console.WriteLine($"{rooms[roomNumber]} checked out of room #{roomNumber}.");
+                    rooms[roomNumber] = "";
                     checkingOut = false;
                 }
             }
@@ -126,6 +124,22 @@ namespace HotelManager
                 string tri = string.IsNullOrEmpty(rooms[i]) == true ? "[Unoccupied]" : rooms[i];
                 Console.WriteLine($"{i}: {tri}");
             }
+        }
+        private static int GetIntInput(string[] rooms)
+        {
+            int theNumber = -1;
+            bool isGettingNumber = true;
+            while (isGettingNumber)
+            {
+                Console.Write($"Room #[0-{rooms.Length}]: ");
+                if (int.TryParse(Console.ReadLine(), out theNumber) == true && theNumber >= 0 && theNumber < rooms.Length)
+                {
+                    isGettingNumber = false;
+                }
+            }
+
+            return theNumber;
+
         }
     }
 }
