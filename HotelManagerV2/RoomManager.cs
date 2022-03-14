@@ -11,6 +11,7 @@ namespace HotelManager
         public static Dictionary<int, Guest> UserList = new Dictionary<int, Guest>();
         private static Guest value;
         private static bool[] rooms = new bool[10];
+        private static Room[] roomss = new Room[100];
         private static int ID_LIST;
         private static Random _random = new Random();
         private static ConsoleColor GetRandomConsoleColor()
@@ -26,7 +27,7 @@ namespace HotelManager
             {
                 instructions();
                 input = Console.ReadLine();
-                Console.ResetColor();
+                 Console.ResetColor();
                 if (input == "q")
                 {
                     break;
@@ -117,6 +118,8 @@ namespace HotelManager
                 int temp = int.Parse(Console.ReadLine());
                 if (temp >= 0 && temp < 11 && rooms[temp] == false)
                 {
+                    roomss[temp].Guest = value;
+                    roomss[temp].Booked = true;
                     roomNumber = temp;
                     Guest guest = new Guest(ID_LIST, roomNumber, firstName);
                     UserList.Add(ID_LIST, guest);
@@ -170,6 +173,8 @@ namespace HotelManager
                             break;
                         case "2":
                             value.checkedIn = false;
+                            rooms[value.roomNumber] = false;
+                            value.roomNumber = -1;
                             break;
                         case "3":
                             PrintRooms();
@@ -177,7 +182,10 @@ namespace HotelManager
                             int temp = int.Parse(Console.ReadLine());
                             if (rooms[temp] == false)
                             {
-                                value.roomNumber = temp;
+                                if(value.roomNumber != -1)
+                                    Console.WriteLine("Please checkout before assigning a new room.");
+                                else
+                                    value.roomNumber = temp;
                             }
                             else
                             {
@@ -220,5 +228,11 @@ namespace HotelManager
             UserList.TryGetValue(id, out Guest value);
             return value;
         }
+
+        private static void BookRoom()
+        {
+            
+        }
+        
     }
 }

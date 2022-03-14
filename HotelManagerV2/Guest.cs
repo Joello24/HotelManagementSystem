@@ -14,7 +14,7 @@ namespace HotelManager
         public bool checkedIn { get; set; }
         public DateTime checkInTime { get; set; }
         public DateTime checkOutTime { get; set; }
-        public int roomNumber { get; set; }
+        public int roomNumber { get; set; } = -1;
 
         public Guest() { }
 
